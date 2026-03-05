@@ -52,21 +52,43 @@ pipeline {
             }
         }
 }
-	post {
-		success {
-		mail(
-            		subject: "Jenkins Build Success",
-            		body: "Build completed successfully.",
-            		to: "devubavaria.8502@gmail.com"
-        		)
-    		}
 
-    		failure {
-        	mail(
-            		subject: "Jenkins Build Failed",
-            		body: "Build failed. Please check Jenkins.",
-            		to: "devubavaria.8502@gmail.com"
+	post {
+
+ 	   success {
+        	emailext (
+            	subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+            	body: """
+            	<h2 style="color:green;">Build Successful</h2>
+
+            	<b>Job Name:</b> ${env.JOB_NAME} <br>
+            	<b>Build Number:</b> ${env.BUILD_NUMBER} <br>
+            	<b>Build URL:</b> ${env.BUILD_URL} <br>
+            	<b>Git Branch:</b> ${env.GIT_BRANCH} <br>
+
+            	<p>The build completed successfully.</p>
+            	""",
+            	attachLog: true,
+            	to: "devubavaria.8502@gmail.com"
         	)
     		}
-    	}
+
+    	failure {
+        	emailext (
+            	subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+            	body: """
+            	<h2 style="color:red;">Build Failed</h2>
+
+            	<b>Job Name:</b> ${env.JOB_NAME} <br>
+            	<b>Build Number:</b> ${env.BUILD_NUMBER} <br>
+            	<b>Build URL:</b> ${env.BUILD_URL} <br>
+
+            	<p>Please check the console output.</p>
+            	""",
+            	attachLog: true,
+            	to: "devubavaria.8502@gmail.com"
+        	)
+    		}
+	}
+
 }
