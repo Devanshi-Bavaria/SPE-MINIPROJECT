@@ -1,0 +1,19 @@
+---
+- hosts: servers
+  become: false
+
+  tasks:
+
+    - name: Pull Docker image
+      command: docker pull gasolinaaa/calculator:latest
+
+    - name: Stop old container if exists
+      command: docker stop calculator-container
+      ignore_errors: yes
+
+    - name: Remove old container
+      command: docker rm calculator-container
+      ignore_errors: yes
+
+    - name: Run new container
+      command: docker run -dit --name calculator-container gasolinaaa/calculator:latest
