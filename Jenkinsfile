@@ -51,5 +51,22 @@ pipeline {
                 sh 'ansible-playbook ansible/deploy.yml -i ansible/inventory'
             }
         }
-    }
+}
+	post {
+		success {
+		mail(
+            		subject: "Jenkins Build Success",
+            		body: "Build completed successfully.",
+            		to: "devubavaria.8502@gmail.com"
+        		)
+    		}
+
+    		failure {
+        	mail(
+            		subject: "Jenkins Build Failed",
+            		body: "Build failed. Please check Jenkins.",
+            		to: "devubavaria.8502@gmail.com"
+        	)
+    		}
+    	}
 }
