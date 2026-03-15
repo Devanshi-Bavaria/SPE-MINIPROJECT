@@ -69,7 +69,7 @@ pipeline {
             	<p>The build completed successfully.</p>
             	""",
             	attachLog: true,
-            	to: "devubavaria.8502@gmail.com"
+            	to: "bavariadevanshi@gmail.com"
         	)
     		}
 
@@ -86,7 +86,7 @@ pipeline {
             	<p>Please check the console output.</p>
             	""",
             	attachLog: true,
-            	to: "devubavaria.8502@gmail.com"
+            	to: "bavariadevanshi@gmail.com"
         	)
     		}
 	}
